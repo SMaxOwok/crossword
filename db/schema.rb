@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_18_214115) do
+ActiveRecord::Schema.define(version: 2019_08_18_214240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "puzzles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "source", null: false
+    t.date "date", null: false
+    t.integer "hours", default: 0, null: false
+    t.integer "minutes", default: 0, null: false
+    t.integer "seconds", default: 0, null: false
+    t.string "day_of_week", null: false
+    t.integer "error_count", default: 0, null: false
+    t.integer "revealed_count", default: 0, null: false
+    t.boolean "completed", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
