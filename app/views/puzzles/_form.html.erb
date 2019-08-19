@@ -56,5 +56,11 @@
 
     <%= f.submit class: 'btn btn-primary' %>
     <%= link_to 'Cancel', puzzles_path, class: 'btn btn-secondary' %>
+
+    <% unless puzzle.new_record? %>
+      <div class='form-group py-1'>
+        <%= link_to 'Delete puzzle', puzzle_path, method: :delete, class: 'text-danger' %>
+      </div>
+    <% end %>
   <% end %>
 </section>

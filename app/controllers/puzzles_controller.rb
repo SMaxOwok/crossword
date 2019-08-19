@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PuzzlesController < ApplicationController
-  before_action :set_puzzle!, only: [:edit, :destroy]
+  before_action :set_puzzle!, only: %i[edit update destroy]
 
   def index
     @puzzles = Puzzle.with_order
@@ -15,7 +15,8 @@ class PuzzlesController < ApplicationController
     @puzzle = Puzzle.new(puzzle_params)
 
     if @puzzle.save
-      redirect_to puzzles_path
+      redirect_to puzzles_path,
+                  flash: { success: 'Record successfully created' }
     else
       render :new
     end
@@ -23,9 +24,21 @@ class PuzzlesController < ApplicationController
 
   def edit; end
 
-  def update; end
+  def update
+    if @puzzle.update(puzzle_params)
+      redirect_to puzzles_path,
+                  flash: { success: 'Record successfully updated' }
+    else
+      render :edit
+    end
+  end
 
-  def destroy; end
+  def destroy
+    @puzzle.destroy
+
+    redirect_to puzzles_path,
+                flash: { success: 'Record successfully destroyed' }
+  end
 
   private
 

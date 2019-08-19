@@ -1,4 +1,4 @@
-<div class='py-4 text-center'>
+<div class='pb-4 text-center'>
   <%= button_to 'New Puzzle', new_puzzle_path, method: :get, class: 'btn btn-primary' %>
 </div>
 
@@ -16,7 +16,7 @@
   <tbody>
     <% @puzzles.each do |puzzle| %>
       <tr>
-        <th scope="row"><%= puzzle.date.strftime('%m-%d-%Y') %></th>
+        <th scope="row"><%= link_to puzzle.date.strftime('%m-%d-%Y'), edit_puzzle_path(puzzle) %></th>
         <td><%= puzzle.day_of_week %></td>
         <td><%= puzzle.completed? ? 'Yes' : 'No' %></td>
         <td><%= puzzle.formatted_time %></td>
