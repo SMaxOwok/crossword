@@ -3,6 +3,13 @@
 class Puzzle < ApplicationRecord
   include ClassyEnum::ActiveRecord
 
+  # Scopes
+  scope :with_order, lambda { |by = nil|
+    next order(date: :desc) unless by.present?
+
+    order(by)
+  }
+
   # Validations
   validates :hours, :minutes, :seconds,
             :day_of_week, :source, presence: true

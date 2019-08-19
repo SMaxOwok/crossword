@@ -4,7 +4,7 @@ class PuzzlesController < ApplicationController
   before_action :set_puzzle!, only: [:edit, :destroy]
 
   def index
-    @puzzles = Puzzle.all
+    @puzzles = Puzzle.with_order
   end
 
   def new
