@@ -1,0 +1,60 @@
+<section class='row py-5 justify-content-center'>
+  <% if puzzle.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <% puzzle.errors.full_messages.each do |error| %>
+        <div><%= error %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= form_for puzzle, html: { class: 'col-8' } do |f| %>
+    <div class='form-group'>
+      <%= f.label :source %>
+      <%= f.select :source, Source.all.collect { |s| [s.name, s.to_s] }, {}, { class: 'custom-select' } %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :date, 'Date' %>
+      <%= f.text_field :date, { class: 'form-control', data: { provide: 'datepicker', 'date-format': 'yyyy-mm-dd' } } %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :time_taken, 'Time Taken' %>
+
+      <div class='input-group'>
+        <%= f.number_field :hours, class: 'form-control' %>
+        <div class='input-group-append'>
+          <span class='input-group-text'>Hours</span>
+        </div>
+
+        <%= f.number_field :minutes, class: 'form-control' %>
+        <div class='input-group-append'>
+          <span class='input-group-text'>Minutes</span>
+        </div>
+
+        <%= f.number_field :seconds, class: 'form-control' %>
+        <div class='input-group-append'>
+          <span class='input-group-text'>Seconds</span>
+        </div>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :error_count %>
+      <%= f.number_field :error_count, class: 'form-control' %>
+    </div>
+
+    <div class='form-group'>
+      <%= f.label :revealed_count %>
+      <%= f.number_field :revealed_count, class: 'form-control' %>
+    </div>
+
+    <div class='form-group form-check'>
+      <%= f.check_box :completed, class: 'form-check-input' %>
+      <%= f.label :completed?, class: 'form-check-label' %>
+    </div>
+
+    <%= f.submit class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', puzzles_path, class: 'btn btn-secondary' %>
+  <% end %>
+</section>

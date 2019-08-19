@@ -8,10 +8,18 @@ class PuzzlesController < ApplicationController
   end
 
   def new
-    @puzzle = Puzzle.new
+    @puzzle = Puzzle.new(date: Date.today)
   end
 
-  def create; end
+  def create
+    @puzzle = Puzzle.new(puzzle_params)
+
+    if @puzzle.save
+      redirect_to puzzles_path
+    else
+      render :new
+    end
+  end
 
   def edit; end
 
@@ -23,5 +31,10 @@ class PuzzlesController < ApplicationController
 
   def set_puzzle!
     @puzzle = Puzzle.find(params[:id])
+  end
+
+  def puzzle_params
+    params.require(:puzzle).permit(:source, :date, :hours, :minutes, :seconds,
+                                   :completed, :error_count, :revealed_count)
   end
 end

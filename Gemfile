@@ -5,6 +5,7 @@ ruby '2.5.3'
 
 gem 'autoprefixer-rails', '~> 9.6'
 gem 'bootstrap', '~> 4.3.1'
+gem 'bootstrap-datepicker-rails', '~> 1.8'
 gem 'classy_enum', '~> 4.0'
 gem 'jquery-rails'
 gem 'pg', '>= 0.18', '< 2.0'
