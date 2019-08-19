@@ -1,0 +1,29 @@
+<div class='py-4 text-center'>
+  <%= button_to 'New Puzzle', new_puzzle_path, method: :get, class: 'btn btn-primary' %>
+</div>
+
+<table class='table table-dark'>
+  <thead>
+    <th scope="col">Date</th>
+    <th scope="col">Day of Week</th>
+    <th scope="col">Completed?</th>
+    <th scope="col">Time Taken</th>
+    <th scope="col">Source</th>
+    <th scope="col">Errors</th>
+    <th scope="col">Revealed</th>
+  </thead>
+
+  <tbody>
+    <% @puzzles.each do |puzzle| %>
+      <tr>
+        <th scope="row"><%= puzzle.date.strftime('%m-%d-%Y') %></th>
+        <td><%= puzzle.day_of_week %></td>
+        <td><%= puzzle.completed? ? 'Yes' : 'No' %></td>
+        <td><%= puzzle.formatted_time %></td>
+        <td><%= puzzle.source_name %></td>
+        <td><%= puzzle.error_count %></td>
+        <td><%= puzzle.revealed_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
