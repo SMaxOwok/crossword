@@ -18,6 +18,7 @@ class Puzzle < ApplicationRecord
 
   # Callbacks
   before_validation :set_day_of_week!
+  before_save :set_time_taken_in_seconds!
 
   classy_enum_attr :source
 
@@ -44,6 +45,10 @@ class Puzzle < ApplicationRecord
     retval
   end
 
+  def time_in_seconds
+    (hours * 3600) + (minutes * 60) + seconds
+  end
+
   private
 
   def time_positive?
@@ -58,5 +63,11 @@ class Puzzle < ApplicationRecord
 
   def set_day_of_week!
     assign_attributes(day_of_week: date.strftime('%A').downcase)
+  end
+
+  def set_time_taken_in_seconds!
+    return unless %i[hours minutes seconds].any? { |key| changes[key].present? }
+
+    assign_attributes(time_taken_in_seconds: time_in_seconds)
   end
 end

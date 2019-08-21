@@ -16,7 +16,7 @@
   <tbody>
     <% @puzzles.each do |puzzle| %>
       <tr>
-        <th scope="row"><%= link_to puzzle.date.strftime('%m-%d-%Y'), edit_puzzle_path(puzzle) %></th>
+        <td><%= link_to puzzle.date.strftime('%m-%d-%Y'), edit_puzzle_path(puzzle) %></td>
         <td><%= puzzle.day_of_week %></td>
         <td><%= puzzle.completed? ? 'Yes' : 'No' %></td>
         <td><%= puzzle.formatted_time %></td>
