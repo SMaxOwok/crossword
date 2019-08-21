@@ -12,6 +12,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.2'
 gem 'sass-rails', '~> 5.0'
+gem 'scenic', '~> 1.4'
 gem 'sprockets-rails'
 gem 'turbolinks', '~> 5'
 
