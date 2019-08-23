@@ -3,6 +3,11 @@
 class Puzzle < ApplicationRecord
   include ClassyEnum::ActiveRecord
 
+  # Relationships
+  has_one :daily_stats,
+          class_name: 'DailyStat',
+          foreign_key: :day_of_week
+
   # Scopes
   scope :with_order, lambda { |by = nil|
     next order(date: :desc) unless by.present?
