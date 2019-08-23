@@ -2,6 +2,12 @@
   <%= button_to 'New Puzzle', new_puzzle_path, method: :get, class: 'btn btn-primary' %>
 </div>
 
+<div>
+  <h3 class='pb-3 text-center'>Stats for <%= current_day.titleize %>s</h3>
+
+  <%= render 'partials/stats', stats: @daily_stats %>
+</div>
+
 <table class='table table-dark'>
   <thead>
     <th scope="col">Date</th>

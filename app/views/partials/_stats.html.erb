@@ -1,0 +1,31 @@
+<table class='table'>
+  <thead>
+  <th scope="col">Puzzles Solved</th>
+  <th scope="col">Solve Rate</th>
+  <th scope="col">Average Time</th>
+  <th scope="col">Fastest Time</th>
+  <th scope="col">Total Errors</th>
+  <th scope="col">Total Revealed</th>
+  </thead>
+
+  <tbody>
+    <% if stats.present? %>
+      <tr>
+        <td><%= stats.completed_count %></td>
+        <td><%= stats.percent_completed %> %</td>
+        <td><%= stats.formatted_average_time %></td>
+        <td><%= stats.formatted_fastest_time %></td>
+        <td><%= stats.error_count %></td>
+        <td><%= stats.revealed_count %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
