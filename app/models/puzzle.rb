@@ -2,18 +2,15 @@
 
 class Puzzle < ApplicationRecord
   include ClassyEnum::ActiveRecord
+  include Concerns::Sortable
+
+  sortable_attributes :source, :date, :time_taken_in_seconds, :completed, :error_count,
+                      :day_of_week, :revealed_count, default: :date
 
   # Relationships
   has_one :daily_stats,
           class_name: 'DailyStat',
           foreign_key: :day_of_week
-
-  # Scopes
-  scope :with_order, lambda { |by = nil|
-    next order(date: :desc) unless by.present?
-
-    order(by)
-  }
 
   # Validations
   validates :hours, :minutes, :seconds,

@@ -1,3 +1,25 @@
 table {
   text-transform: capitalize;
+
+  .sortable-header {
+    position: relative;
+    color: theme-color('light');
+    transition: color 200ms linear;
+
+    &.sort-ascending:after {
+      content: '\f107';
+    }
+
+    &.sort-descending:after {
+      content: '\f106';
+    }
+
+    &:after {
+      font-family: 'FontAwesome';
+      font-size: 20px;
+      position: absolute;
+      margin-left: 5px;
+      margin-top: -3px;
+    }
+  }
 }

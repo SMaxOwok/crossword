@@ -4,7 +4,7 @@ class PuzzlesController < ApplicationController
   before_action :set_puzzle!, only: %i[edit update destroy]
 
   def index
-    @puzzles = Puzzle.with_order
+    @puzzles = Puzzle.sorted(params)
     @daily_stats = DailyStat.includes(:fastest_puzzle).find_by(day_of_week: current_day)
   end
 
