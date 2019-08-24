@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Statistics < ApplicationRecord
-  include HasAverageCompletionTime
+  include Concerns::HasAverageCompletionTime
 
   def readonly?
     true

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DailyStat < ApplicationRecord
-  include HasAverageCompletionTime
+  include Concerns::HasAverageCompletionTime
 
   self.primary_key = 'day_of_week'
 
