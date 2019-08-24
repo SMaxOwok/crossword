@@ -17,8 +17,8 @@ class Puzzle < ApplicationRecord
 
   # Validations
   validates :hours, :minutes, :seconds,
-            :day_of_week, :source, presence: true
-  validates :date, uniqueness: true, presence: true
+            :day_of_week, :source, :date, presence: true
+  validates :date, uniqueness: { scope: :source }
   validate :time_is_valid!, if: :completed?
 
   # Callbacks
