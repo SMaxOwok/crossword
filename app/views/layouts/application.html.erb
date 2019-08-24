@@ -10,7 +10,9 @@
   </head>
 
   <body>
-    <main class='container-fluid py-4'>
+    <%= render 'layouts/header' %>
+
+    <main class='container-fluid'>
       <%= render 'partials/notifications' %>
 
       <%= yield %>

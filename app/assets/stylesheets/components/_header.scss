@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: theme-color(light);
+  border-bottom: 1px solid theme-color-level(light, 2);
+  text-transform: capitalize;
+}
