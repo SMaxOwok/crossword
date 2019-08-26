@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.3'
 
+gem 'active_interaction', '~> 3.7'
 gem 'autoprefixer-rails', '~> 9.6'
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-datepicker-rails', '~> 1.8'
