@@ -1,1 +1,10 @@
+<%= render 'partials/modal',
+           id: 'delete-puzzle',
+           title: 'Are you sure?',
+           message: 'This action cannot be undone.',
+           action_text: 'Delete',
+           action_path: puzzle_path,
+           action_method: :delete,
+           action_class: 'btn-danger'
+%>
 <%= render 'form', puzzle: @puzzle %>

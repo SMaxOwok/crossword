@@ -60,7 +60,11 @@
 
       <% unless puzzle.new_record? %>
         <div class='form-group py-1'>
-          <%= link_to 'Delete puzzle', puzzle_path, method: :delete, class: 'text-danger' %>
+          <%= button_tag 'Delete puzzle',
+                         type: 'button',
+                         class: 'p-0 text-danger btn btn-link',
+                         data: { toggle: 'modal', target: '#delete-puzzle' }
+          %>
         </div>
       <% end %>
     <% end %>
