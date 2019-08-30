@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_223338) do
+ActiveRecord::Schema.define(version: 2019_08_30_224144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -45,16 +45,6 @@ ActiveRecord::Schema.define(version: 2019_08_30_223338) do
   end
 
 
-  create_view "statistics", sql_definition: <<-SQL
-      SELECT round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
-      (avg(puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))::integer AS average_completion_time_in_seconds,
-      COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count,
-      COALESCE(sum(puzzles.error_count), (0)::bigint) AS error_count,
-      COALESCE(sum(puzzles.revealed_count), (0)::bigint) AS revealed_count,
-      round(avg(puzzles.error_count), 2) AS average_error_count,
-      round(avg(puzzles.revealed_count), 2) AS average_revealed_count
-     FROM puzzles;
-  SQL
   create_view "daily_stats", sql_definition: <<-SQL
       SELECT puzzles.day_of_week,
       puzzles.user_id,
@@ -71,5 +61,18 @@ ActiveRecord::Schema.define(version: 2019_08_30_223338) do
       COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count
      FROM puzzles
     GROUP BY puzzles.user_id, puzzles.day_of_week;
+  SQL
+  create_view "statistics", sql_definition: <<-SQL
+      SELECT round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
+      (avg(puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))::integer AS average_completion_time_in_seconds,
+      COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count,
+      COALESCE(sum(puzzles.error_count), (0)::bigint) AS error_count,
+      COALESCE(sum(puzzles.revealed_count), (0)::bigint) AS revealed_count,
+      round(avg(puzzles.error_count), 2) AS average_error_count,
+      round(avg(puzzles.revealed_count), 2) AS average_revealed_count,
+      puzzles.user_id
+     FROM (puzzles
+       JOIN users ON ((puzzles.user_id = users.id)))
+    GROUP BY puzzles.user_id;
   SQL
 end

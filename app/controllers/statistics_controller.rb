@@ -2,6 +2,6 @@
 
 class StatisticsController < ApplicationController
   def index
-    @statistics = Statistics.instance
+    @statistics = current_user.statistics
   end
 end

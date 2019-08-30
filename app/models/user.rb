@@ -4,4 +4,5 @@ class User < ApplicationRecord
   # Relationships
   has_many :puzzles, dependent: :destroy
   has_many :daily_stats
+  has_one :statistics
 end

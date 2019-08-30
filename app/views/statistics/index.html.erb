@@ -6,24 +6,36 @@
 
 <table class='table'>
   <thead>
-  <th scope="col">Puzzles Solved</th>
-  <th scope="col">Solve Rate</th>
-  <th scope="col">Average Time</th>
-  <th scope="col">Total Errors</th>
-  <th scope="col">Average Errors</th>
-  <th scope="col">Total Revealed</th>
-  <th scope="col">Average Revealed</th>
+    <th scope="col">Puzzles Solved</th>
+    <th scope="col">Solve Rate</th>
+    <th scope="col">Average Time</th>
+    <th scope="col">Total Errors</th>
+    <th scope="col">Average Errors</th>
+    <th scope="col">Total Revealed</th>
+    <th scope="col">Average Revealed</th>
   </thead>
 
   <tbody>
-    <tr>
-      <td><%= @statistics.completed_count %></td>
-      <td><%= @statistics.percent_completed %> %</td>
-      <td><%= @statistics.formatted_average_time %></td>
-      <td><%= @statistics.error_count %></td>
-      <td><%= @statistics.average_error_count %></td>
-      <td><%= @statistics.revealed_count %></td>
-      <td><%= @statistics.average_revealed_count %></td>
-    </tr>
+    <% if @statistics.present? %>
+      <tr>
+        <td><%= @statistics.completed_count %></td>
+        <td><%= @statistics.percent_completed %> %</td>
+        <td><%= @statistics.formatted_average_time %></td>
+        <td><%= @statistics.error_count %></td>
+        <td><%= @statistics.average_error_count %></td>
+        <td><%= @statistics.revealed_count %></td>
+        <td><%= @statistics.average_revealed_count %></td>
+      </tr>
+    <% else %>
+      <tr>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
