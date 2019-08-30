@@ -2,6 +2,7 @@
 
 class Puzzle < ApplicationRecord
   include ClassyEnum::ActiveRecord
+  include Concerns::Filterable
   include Concerns::Sortable
 
   sortable_attributes :source, :date, :time_taken_in_seconds, :completed, :error_count,
@@ -11,6 +12,11 @@ class Puzzle < ApplicationRecord
   has_one :daily_stats,
           class_name: 'DailyStat',
           foreign_key: :day_of_week
+
+  # Scopes
+  scope :by_day_of_week, ->(day_of_week) { where(day_of_week: day_of_week) if day_of_week.present? }
+  scope :by_completed, ->(completed = nil) { where(completed: completed) unless completed.nil? }
+  scope :by_source, ->(source) { where(source: source) if source.present? }
 
   # Validations
   validates :hours, :minutes, :seconds,

@@ -67,4 +67,28 @@ RSpec.describe Puzzle, type: :model do
       end
     end
   end
+
+  describe 'filtering' do
+    before(:all) do
+      30.times { |i| FactoryBot.create(:puzzle, date: Date.today - i.days) }
+    end
+
+    it 'can be filtered by :completed' do
+      subject = false
+
+      expect(Puzzle.filter(completed: subject).pluck(:completed)).to all eq subject
+    end
+
+    it 'can be filtered by :day_of_week' do
+      subject = 'tuesday'
+
+      expect(Puzzle.filter(day_of_week: subject).pluck(:day_of_week)).to all eq subject
+    end
+
+    it 'can be filtered by :source' do
+      subject = 'nyt'
+
+      expect(Puzzle.filter(source: subject).pluck(:source)).to all eq subject
+    end
+  end
 end
