@@ -21,7 +21,7 @@ module Development
       end
     end
 
-    def load_users(count = 10)
+    def load_users(count = 5)
       count.times do |i|
         user = User.create(
           email: "crossword-#{i + 1}@example.com",
@@ -33,19 +33,21 @@ module Development
     end
 
     def load_puzzles(count = 50)
-      count.times do |i|
-        puzzle = Puzzle.create(
-          date: start_date - i.days,
-          hours: rand(0..1),
-          minutes: rand(0..59),
-          seconds: rand(0..59),
-          source: Source.all.sample,
-          error_count: rand(0..20),
-          revealed_count: rand(0..20),
-          completed: rand(0..1)
-        )
+      User.find_each do |user|
+        count.times do |i|
+          puzzle = user.puzzles.create(
+            date: start_date - i.days,
+            hours: rand(0..1),
+            minutes: rand(0..59),
+            seconds: rand(0..59),
+            source: Source.all.sample,
+            error_count: rand(0..20),
+            revealed_count: rand(0..20),
+            completed: rand(0..1)
+          )
 
-        logger.info("Puzzle created for #{puzzle.date.strftime('%m-%d-%Y')}.")
+          logger.info("User #{user.email} puzzle created (#{puzzle.date.strftime('%m-%d-%Y')}).")
+        end
       end
     end
 

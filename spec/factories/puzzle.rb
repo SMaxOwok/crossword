@@ -6,5 +6,6 @@ FactoryBot.define do
     hours { rand(0..1) }
     minutes { rand(0..59) }
     seconds { rand(0..59) }
+    user
   end
 end

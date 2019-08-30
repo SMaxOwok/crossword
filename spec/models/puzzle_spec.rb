@@ -7,6 +7,10 @@ RSpec.describe Puzzle, type: :model do
     expect(FactoryBot.build(:puzzle)).to be_valid
   end
 
+  it 'is invalid without a user' do
+    expect(FactoryBot.build(:puzzle, user: nil)).to_not be_valid
+  end
+
   describe ':completed' do
     context 'when true' do
       it 'is invalid without a time' do
@@ -70,7 +74,8 @@ RSpec.describe Puzzle, type: :model do
 
   describe 'filtering' do
     before(:all) do
-      30.times { |i| FactoryBot.create(:puzzle, date: Date.today - i.days) }
+      user = FactoryBot.create(:user)
+      30.times { |i| FactoryBot.create(:puzzle, date: Date.today - i.days, user: user) }
     end
 
     it 'can be filtered by :completed' do

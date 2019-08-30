@@ -4,16 +4,16 @@ class PuzzlesController < ApplicationController
   before_action :set_puzzle!, only: %i[edit update destroy]
 
   def index
-    @puzzles = Puzzle.filter(puzzle_filter_params).sorted(params).page(params[:page])
+    @puzzles = current_user.puzzles.filter(puzzle_filter_params).sorted(params).page(params[:page])
     @daily_stats = DailyStat.includes(:fastest_puzzle).find_by(day_of_week: current_day)
   end
 
   def new
-    @puzzle = Puzzle.new(date: Date.today)
+    @puzzle = current_user.puzzles.new(date: Date.today)
   end
 
   def create
-    @puzzle = Puzzle.new(puzzle_params)
+    @puzzle = current_user.puzzles.new(puzzle_params)
 
     if @puzzle.save
       redirect_to puzzles_path,
@@ -44,7 +44,7 @@ class PuzzlesController < ApplicationController
   private
 
   def set_puzzle!
-    @puzzle = Puzzle.find(params[:id])
+    @puzzle = current_user.puzzles.find(params[:id])
   end
 
   def puzzle_params

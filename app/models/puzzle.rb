@@ -9,6 +9,7 @@ class Puzzle < ApplicationRecord
                       :day_of_week, :revealed_count, default: :date
 
   # Relationships
+  belongs_to :user
   has_one :daily_stats,
           class_name: 'DailyStat',
           foreign_key: :day_of_week
@@ -25,7 +26,7 @@ class Puzzle < ApplicationRecord
   # Validations
   validates :hours, :minutes, :seconds,
             :day_of_week, :source, :date, presence: true
-  validates :date, uniqueness: { scope: :source }
+  validates :date, uniqueness: { scope: [:user_id, :source] }
   validate :time_is_valid!, if: :completed?
 
   # Callbacks
