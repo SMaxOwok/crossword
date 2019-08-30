@@ -2,7 +2,6 @@
   <%= button_to 'Back', puzzles_path, method: :get, class: 'btn btn-primary' %>
 </div>
 
-
 <h3 class='pb-3 text-center'>All-Time Statistics</h3>
 
 <table class='table'>
@@ -11,7 +10,9 @@
   <th scope="col">Solve Rate</th>
   <th scope="col">Average Time</th>
   <th scope="col">Total Errors</th>
+  <th scope="col">Average Errors</th>
   <th scope="col">Total Revealed</th>
+  <th scope="col">Average Revealed</th>
   </thead>
 
   <tbody>
@@ -20,7 +21,9 @@
       <td><%= @statistics.percent_completed %> %</td>
       <td><%= @statistics.formatted_average_time %></td>
       <td><%= @statistics.error_count %></td>
+      <td><%= @statistics.average_error_count %></td>
       <td><%= @statistics.revealed_count %></td>
+      <td><%= @statistics.average_revealed_count %></td>
     </tr>
   </tbody>
 </table>

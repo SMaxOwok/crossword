@@ -4,8 +4,8 @@
   <th scope="col">Solve Rate</th>
   <th scope="col">Average Time</th>
   <th scope="col">Fastest Time</th>
-  <th scope="col">Total Errors</th>
-  <th scope="col">Total Revealed</th>
+  <th scope="col">Average Errors</th>
+  <th scope="col">Average Revealed</th>
   </thead>
 
   <tbody>
@@ -15,8 +15,8 @@
         <td><%= stats.percent_completed %> %</td>
         <td><%= stats.formatted_average_time %></td>
         <td><%= stats.formatted_fastest_time %></td>
-        <td><%= stats.error_count %></td>
-        <td><%= stats.revealed_count %></td>
+        <td><%= stats.average_error_count %></td>
+        <td><%= stats.average_revealed_count %></td>
       </tr>
     <% else %>
       <tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_26_051259) do
+ActiveRecord::Schema.define(version: 2019_08_30_193943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -32,14 +32,6 @@ ActiveRecord::Schema.define(version: 2019_08_26_051259) do
   end
 
 
-  create_view "statistics", sql_definition: <<-SQL
-      SELECT round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
-      (avg(puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))::integer AS average_completion_time_in_seconds,
-      COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count,
-      COALESCE(sum(puzzles.error_count), (0)::bigint) AS error_count,
-      COALESCE(sum(puzzles.revealed_count), (0)::bigint) AS revealed_count
-     FROM puzzles;
-  SQL
   create_view "daily_stats", sql_definition: <<-SQL
       SELECT puzzles.day_of_week,
       round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
@@ -50,8 +42,20 @@ ActiveRecord::Schema.define(version: 2019_08_26_051259) do
       (avg(puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))::integer AS average_completion_time_in_seconds,
       COALESCE(sum(puzzles.error_count), (0)::bigint) AS error_count,
       COALESCE(sum(puzzles.revealed_count), (0)::bigint) AS revealed_count,
+      round(avg(puzzles.error_count), 2) AS average_error_count,
+      round(avg(puzzles.revealed_count), 2) AS average_revealed_count,
       COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count
      FROM puzzles
     GROUP BY puzzles.day_of_week;
+  SQL
+  create_view "statistics", sql_definition: <<-SQL
+      SELECT round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
+      (avg(puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))::integer AS average_completion_time_in_seconds,
+      COALESCE(count(*) FILTER (WHERE puzzles.completed)) AS completed_count,
+      COALESCE(sum(puzzles.error_count), (0)::bigint) AS error_count,
+      COALESCE(sum(puzzles.revealed_count), (0)::bigint) AS revealed_count,
+      round(avg(puzzles.error_count), 2) AS average_error_count,
+      round(avg(puzzles.revealed_count), 2) AS average_revealed_count
+     FROM puzzles;
   SQL
 end
