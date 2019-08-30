@@ -1,0 +1,9 @@
+.alert {
+  &-alert {
+    @extend .alert-danger;
+  }
+
+  &-notice {
+    @extend .alert-warning;
+  }
+}
