@@ -4,7 +4,7 @@ class PuzzlesController < ApplicationController
   before_action :set_puzzle!, only: %i[edit update destroy]
 
   def index
-    @puzzles = Puzzle.sorted(params).page(params[:page])
+    @puzzles = Puzzle.filter(puzzle_filter_params).sorted(params).page(params[:page])
     @daily_stats = DailyStat.includes(:fastest_puzzle).find_by(day_of_week: current_day)
   end
 
@@ -50,5 +50,9 @@ class PuzzlesController < ApplicationController
   def puzzle_params
     params.require(:puzzle).permit(:source, :date, :hours, :minutes, :seconds,
                                    :completed, :error_count, :revealed_count)
+  end
+
+  def puzzle_filter_params
+    params.permit(filter: [:completed, :source, :day_of_week])[:filter]
   end
 end

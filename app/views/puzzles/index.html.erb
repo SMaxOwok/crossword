@@ -8,8 +8,11 @@
   <%= render 'partials/stats', stats: @daily_stats %>
 </div>
 
-<table class='table table-dark'>
-  <thead>
+<div class='mt-5'>
+  <%= render 'partials/filters' %>
+
+  <table class='table table-dark'>
+    <thead>
     <th scope="col"><%= sortable_header(params, 'date') %></th>
     <th scope="col"><%= sortable_header(params, 'day_of_week', 'Day of Week') %></th>
     <th scope="col"><%= sortable_header(params, 'completed', 'Completed?') %></th>
@@ -17,9 +20,9 @@
     <th scope="col"><%= sortable_header(params, 'source') %></th>
     <th scope="col"><%= sortable_header(params, 'error_count', 'Errors') %></th>
     <th scope="col"><%= sortable_header(params, 'revealed_count', 'Revealed') %></th>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @puzzles.each do |puzzle| %>
       <tr>
         <td><%= link_to puzzle.date.strftime('%m-%d-%Y'), edit_puzzle_path(puzzle) %></td>
@@ -31,7 +34,10 @@
         <td><%= puzzle.revealed_count %></td>
       </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+
+
 
 <%= paginate @puzzles %>

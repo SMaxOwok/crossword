@@ -1,0 +1,36 @@
+<%= form_with url: puzzles_path, method: :get, local: true do |f| %>
+  <%= hidden_field_tag 'sorting', params[:sorting] if params[:sorting].present? %>
+  <%= hidden_field_tag 'direction', params[:direction] if params[:direction].present? %>
+
+  <div class='form-row align-items-end justify-content-end'>
+    <div class='col-sm-2'>
+      <div class='form-group'>
+        <%= f.label 'filter[day_of_week]', 'Day of Week' %>
+        <%= f.select 'filter[day_of_week]',
+                     Puzzle.day_of_weeks.keys.map { |day| [day.capitalize, day] },
+                     { selected: params.dig(:filter, :day_of_week),
+                       include_blank: true },
+                     { class: 'form-control' }
+        %>
+      </div>
+    </div>
+    <div class='col-sm-2'>
+      <div class='form-group'>
+        <%= f.label 'filter[completed]', 'Completed' %>
+        <%= f.select 'filter[completed]',
+                     [['Yes', true], ['No', false]],
+                     { selected: params.dig(:filter, :completed),
+                       include_blank: true },
+                     { class: 'form-control' }
+        %>
+      </div>
+    </div>
+    <div class='col-auto ml-4'>
+      <div class='form-group'>
+        <%= f.submit 'Filter', name: nil, class: 'btn btn-primary mr-2' %>
+        <%= link_to 'Reset', params.to_unsafe_h.merge(filter: {}) %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

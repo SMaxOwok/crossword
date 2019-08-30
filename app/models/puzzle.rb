@@ -15,7 +15,11 @@ class Puzzle < ApplicationRecord
 
   # Scopes
   scope :by_day_of_week, ->(day_of_week) { where(day_of_week: day_of_week) if day_of_week.present? }
-  scope :by_completed, ->(completed = nil) { where(completed: completed) unless completed.nil? }
+  scope :by_completed, lambda { |completed = nil|
+    bool_value = ActiveModel::Type::Boolean.new.cast(completed)
+
+    where(completed: bool_value) unless bool_value.nil?
+  }
   scope :by_source, ->(source) { where(source: source) if source.present? }
 
   # Validations
