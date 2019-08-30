@@ -5,7 +5,7 @@ class PuzzlesController < ApplicationController
 
   def index
     @puzzles = current_user.puzzles.filter(puzzle_filter_params).sorted(params).page(params[:page])
-    @daily_stats = DailyStat.includes(:fastest_puzzle).find_by(day_of_week: current_day)
+    @daily_stats = current_user.daily_stats.includes(:fastest_puzzle).find_by(day_of_week: current_day)
   end
 
   def new
