@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_30_223026) do
+ActiveRecord::Schema.define(version: 2019_08_30_223338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2019_08_30_223026) do
       SELECT puzzles.day_of_week,
       puzzles.user_id,
       round((100.0 * ((count(*) FILTER (WHERE puzzles.completed))::numeric / (count(*))::numeric)), 2) AS percent_completed,
-      (array_agg(puzzles.id ORDER BY puzzles.time_taken_in_seconds))[1] AS fastest_puzzle_id,
+      (array_agg(puzzles.id ORDER BY puzzles.time_taken_in_seconds) FILTER (WHERE puzzles.completed))[1] AS fastest_puzzle_id,
       COALESCE(sum(puzzles.hours), (0)::bigint) AS hours,
       COALESCE(sum(puzzles.minutes), (0)::bigint) AS minutes,
       COALESCE(sum(puzzles.seconds), (0)::bigint) AS seconds,
