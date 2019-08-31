@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Authority::UserAbilities
+
   devise :database_authenticatable, :registerable, :recoverable, :validatable
 
   # Relationships

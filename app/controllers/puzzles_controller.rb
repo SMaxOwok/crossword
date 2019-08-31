@@ -23,9 +23,13 @@ class PuzzlesController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize_action_for @puzzle
+  end
 
   def update
+    authorize_action_for @puzzle
+
     if @puzzle.update(puzzle_params)
       redirect_to puzzles_path,
                   flash: { success: 'Record successfully updated' }
@@ -35,6 +39,7 @@ class PuzzlesController < ApplicationController
   end
 
   def destroy
+    authorize_action_for @puzzle
     @puzzle.destroy
 
     redirect_to puzzles_path,

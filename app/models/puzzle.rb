@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Puzzle < ApplicationRecord
+  include Authority::Abilities
   include ClassyEnum::ActiveRecord
   include Concerns::Filterable
   include Concerns::Sortable

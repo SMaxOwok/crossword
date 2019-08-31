@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
+  def authority_forbidden(error)
+    Authority.logger.warn(error.message)
+    redirect_to request.referrer.presence || root_path, alert: 'You are not authorized to complete that action.'
+  end
+
   def current_day
     Date.today.strftime('%A').downcase
   end

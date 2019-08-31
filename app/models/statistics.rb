@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Statistics < ApplicationRecord
+  include Authority::Abilities
   include Concerns::HasAverageCompletionTime
 
   # Relationships
