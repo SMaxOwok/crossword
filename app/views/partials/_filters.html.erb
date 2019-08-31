@@ -5,6 +5,24 @@
   <div class='form-row align-items-end justify-content-end'>
     <div class='col-sm-2'>
       <div class='form-group'>
+        <%= f.label 'filter[date_before]', 'Date before' %>
+        <%= f.text_field 'filter[date_before]',
+                         { class: 'form-control',
+                           data: { provide: 'datepicker', 'date-format': 'yyyy-mm-dd' },
+                           value: params.dig(:filter, :date_before) } %>
+      </div>
+    </div>
+    <div class='col-sm-2'>
+      <div class='form-group'>
+        <%= f.label 'filter[date_after]', 'Date after' %>
+        <%= f.text_field 'filter[date_after]',
+                         { class: 'form-control',
+                           data: { provide: 'datepicker', 'date-format': 'yyyy-mm-dd' },
+                           value: params.dig(:filter, :date_after) } %>
+      </div>
+    </div>
+    <div class='col-sm-2'>
+      <div class='form-group'>
         <%= f.label 'filter[day_of_week]', 'Day of Week' %>
         <%= f.select 'filter[day_of_week]',
                      Puzzle.day_of_weeks.keys.map { |day| [day.capitalize, day] },

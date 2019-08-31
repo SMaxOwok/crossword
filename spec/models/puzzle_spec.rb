@@ -95,5 +95,19 @@ RSpec.describe Puzzle, type: :model do
 
       expect(Puzzle.filter(source: subject).pluck(:source)).to all eq subject
     end
+
+    context 'by :date' do
+      it 'can be filtered by date before' do
+        subject = Date.today - 1.week
+
+        expect(Puzzle.filter(date_before: subject).pluck(:date)).to all be <= subject
+      end
+
+      it 'can be filtered by date after' do
+        subject = Date.today - 2.weeks
+
+        expect(Puzzle.filter(date_after: subject).pluck(:date)).to all be >= subject
+      end
+    end
   end
 end

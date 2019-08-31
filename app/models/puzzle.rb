@@ -22,6 +22,8 @@ class Puzzle < ApplicationRecord
     where(completed: bool_value) unless bool_value.nil?
   }
   scope :by_source, ->(source) { where(source: source) if source.present? }
+  scope :with_date_before, ->(date) { where(arel_table[:date].lteq(date)) if date.present? }
+  scope :with_date_after, ->(date) { where(arel_table[:date].gteq(date)) if date.present? }
 
   # Validations
   validates :hours, :minutes, :seconds,

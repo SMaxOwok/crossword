@@ -53,6 +53,6 @@ class PuzzlesController < ApplicationController
   end
 
   def puzzle_filter_params
-    params.permit(filter: [:completed, :source, :day_of_week])[:filter]
+    params.permit(filter: [:date_before, :date_after, :completed, :source, :day_of_week])[:filter]
   end
 end
